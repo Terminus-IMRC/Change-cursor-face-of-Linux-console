@@ -1,0 +1,48 @@
+\documentclass[11pt,a4paper]{article}
+\title{Change cursor face of Linux Console}
+\author{Sugizaki Yukimasa (Namiki Secondary School, Ibaraki Prefecture)}
+\date{\today}
+
+\begin{document}
+\maketitle
+\abstract{
+In Linux console, shapes, colours and blinking can be changed.
+This paper explains how to do this.
+
+\tableofcontents
+
+\section{By using Escape squences}
+Define escape charactor as \texttt{ESC}.
+
+The format is below. \\
+\verb|ESC[?A;B;Cc|
+(\texttt{A}, \texttt{B} and \texttt{C} are 8-bit decimal numbers.)
+
+\subsection{Parameter \texttt{A}}
+Parameter \texttt{A} changes cursor shapes and states.
+Table\ref{tab:param-A-effects} shows effects of parameter \texttt{A}.
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|c||cl|}
+\hline
+number & effect \\
+\hline\hline
+0 & default \\
+1 & underline \\
+$\cdots$	\\
+8 & full block \\
+\hline
+$number+16$ & apply the software cursor \\
+\end{tabular}
+\label{tab:param-A-effects}
+\caption{Effects of parameter \texttt{A}}
+\end{center}
+\end{table}
+Cursor and characters colour can be changed by the parameter \texttt{A} and \texttt{B}
+if the software cursor applied.
+
+\subsection{Parameter \texttt{B}}
+Parameter \texttt{B} changes the colour and brightness of cursor and charcters.
+Table \ref{tab
+\subsection{Parameter \texttt{C}}
+\end{document}
