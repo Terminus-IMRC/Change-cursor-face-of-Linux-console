@@ -1,4 +1,6 @@
 \documentclass[11pt,a4paper]{article}
+\usepackage{multirow}
+\usepackage{booktabs}
 \title{Change cursor face of Linux Console}
 \author{Sugizaki Yukimasa (Namiki Secondary School, Ibaraki Prefecture)}
 \date{\today}
@@ -7,11 +9,11 @@
 \maketitle
 \abstract{
 In Linux console, shapes, colours and blinking can be changed.
-This paper explains how to do this.
+This paper explains how to change and set as default.
 
 \tableofcontents
 
-\section{By using Escape squences}
+\section{By using Escape squences} \label{sec:cursor-esc}
 Define escape charactor as \texttt{ESC}.
 
 The format is below. \\
@@ -23,8 +25,8 @@ Parameter \texttt{A} changes cursor shapes and states.
 Table\ref{tab:param-A-effects} shows effects of parameter \texttt{A}.
 \begin{table}[htb]
 \begin{center}
-\begin{tabular}{|c||cl|}
-\hline
+\begin{tabular}{|c|l|}
+\toprule
 number & effect \\
 \hline\hline
 0 & default \\
@@ -33,6 +35,7 @@ $\cdots$	\\
 8 & full block \\
 \hline
 $number+16$ & apply the software cursor \\
+\bottomrule
 \end{tabular}
 \label{tab:param-A-effects}
 \caption{Effects of parameter \texttt{A}}
@@ -43,6 +46,41 @@ if the software cursor applied.
 
 \subsection{Parameter \texttt{B}}
 Parameter \texttt{B} changes the colour and brightness of cursor and charcters.
-Table \ref{tab
+Table \ref{tab:param-B-bit-assignments} shows the bit assignments of parameter \texttt{B}.
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|c|l|l|}
+\toprule
+field\verb|#| & effect if 1 \\
+\hline \hline
+1 & \multirow{4}{*}{cursor} & bright \\
+2 && red component \\
+3 && green component \\
+4 && blue component \\
+\hline
+5 & \multirow{4}{*}{characters} & bright \\
+6 && red component(reversed) \\
+7 && green component(reversed) \\
+8 && blue component(reversed) \\
+\bottomrule
+\end{tabular}
+\label{tab:param-B-bit-assignments}
+\caption{Bit assignments of parameter \texttt{B}}
+\end{center}
+\end{table}
+
 \subsection{Parameter \texttt{C}}
+Effect of Parameter \texttt{C} is described as equation \ref{eqn:param-C-effect}.
+\begin{equation}
+	B=B \bigoplus C
+\label{eqn:param-C-effect}
+\end{equation}
+
+
+\section{Set cursor shape as default in kernel command line}
+We use escape-squence-formed cursor shape settings(parameter \texttt{A}, \texttt{B} and \texttt{C} in section \ref{sec:cursor-esc}) in kernel command line.
+The form is below. \\
+\par
+\verb|vt.cur_default=0xCCBBAA| \\
+Note that CC, BB and AA are hexadecimal number.
 \end{document}
